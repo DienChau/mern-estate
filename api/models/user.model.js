@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema(
             type: String,
             require: true,
         },
+        avatar: {
+            type: String,
+            default:
+                "https://hocdohoacaptoc.com/storage/2022/02/avata-dep-nam-2.jpg",
+        },
     },
     { timestamps: true }
 );

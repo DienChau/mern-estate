@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/Oauth";
 function SignUp() {
     const [formData, setFormData] = useState({});
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleOnchange = (e) => {
         setFormData({
@@ -32,14 +33,12 @@ function SignUp() {
                 return;
             }
             setLoading(false);
-            setError(null)
-            navigate('/sign-in')
+            setError(null);
+            navigate("/sign-in");
         } catch (error) {
-            setLoading(false)
+            setLoading(false);
             setError(error.message);
         }
-
-
     };
     return (
         <div className="p-3 max-w-lg mx-auto">
@@ -72,6 +71,7 @@ function SignUp() {
                 >
                     {loading ? "Loading..." : "Sign Up"}
                 </button>
+                <OAuth />
             </form>
             <div className="flex gap-2 mt-5">
                 <p>Have an account?</p>
@@ -79,9 +79,7 @@ function SignUp() {
                     <span className="text-blue-700">Sign in</span>
                 </Link>
             </div>
-            {
-                error && <p className="text-red-500 mt-5">{error}</p>
-            }
+            {error && <p className="text-red-500 mt-5">{error}</p>}
         </div>
     );
 }
