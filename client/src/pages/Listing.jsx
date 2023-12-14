@@ -12,13 +12,17 @@ import {
     FaParking,
     FaChair,
 } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import Contact from "../components/Contact";
 
 export default function Listing() {
+    const { currentUser } = useSelector((state) => state.user);
     SwiperCore.use([Navigation]);
     const [listing, setListing] = useState(null);
     const [loading, setLoading] = useState(false);
     const [copied, setCopied] = useState(false);
     const [error, setError] = useState(false);
+    const [contact, setContact] = useState(false);
     const params = useParams();
     useEffect(() => {
         const fetchListing = async () => {
@@ -142,6 +146,17 @@ export default function Listing() {
                                     : "Unfurnished"}
                             </li>
                         </ul>
+                        {currentUser &&
+                            listing.userRef !== currentUser._id &&
+                            !contact && (
+                                <button
+                                    onClick={() => setContact(true)}
+                                    className="uppercase p-3 text-white bg-slate-700 rounded-lg hover:opacity-95"
+                                >
+                                    Contact landlord
+                                </button>
+                            )}
+                        {contact && <Contact listing={listing} />}
                     </div>
                 </>
             )}
