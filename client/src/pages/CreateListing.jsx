@@ -301,7 +301,7 @@ export default function CreateListing() {
                                 <input
                                     type="number"
                                     id="discountPrice"
-                                    min="0"
+                                    min="50"
                                     max="1000"
                                     required
                                     className="p-3 border border-gray-300 rounded-lg"
