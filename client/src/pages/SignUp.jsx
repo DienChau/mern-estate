@@ -1,20 +1,18 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import OAuth from "../components/Oauth";
-function SignUp() {
+import OAuth from "../components/OAuth";
+
+export default function SignUp() {
     const [formData, setFormData] = useState({});
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-
     const navigate = useNavigate();
-
-    const handleOnchange = (e) => {
+    const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.id]: e.target.value,
         });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -27,9 +25,10 @@ function SignUp() {
                 body: JSON.stringify(formData),
             });
             const data = await res.json();
+            console.log(data);
             if (data.success === false) {
-                setError(data.message);
                 setLoading(false);
+                setError(data.message);
                 return;
             }
             setLoading(false);
@@ -42,29 +41,30 @@ function SignUp() {
     };
     return (
         <div className="p-3 max-w-lg mx-auto">
-            <h1 className="text-3xl font-semibold text-center my-7">Sign Up</h1>
+            <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <input
-                    onChange={handleOnchange}
                     type="text"
-                    id="username"
-                    className="border p-3 rounded-lg"
                     placeholder="username"
+                    className="border p-3 rounded-lg"
+                    id="username"
+                    onChange={handleChange}
                 />
                 <input
-                    onChange={handleOnchange}
                     type="email"
-                    id="email"
-                    className="border p-3 rounded-lg"
                     placeholder="email"
+                    className="border p-3 rounded-lg"
+                    id="email"
+                    onChange={handleChange}
                 />
                 <input
-                    onChange={handleOnchange}
                     type="password"
-                    id="password"
-                    className="border p-3 rounded-lg"
                     placeholder="password"
+                    className="border p-3 rounded-lg"
+                    id="password"
+                    onChange={handleChange}
                 />
+
                 <button
                     disabled={loading}
                     className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
@@ -75,7 +75,7 @@ function SignUp() {
             </form>
             <div className="flex gap-2 mt-5">
                 <p>Have an account?</p>
-                <Link to="/sign-in">
+                <Link to={"/sign-in"}>
                     <span className="text-blue-700">Sign in</span>
                 </Link>
             </div>
@@ -83,5 +83,3 @@ function SignUp() {
         </div>
     );
 }
-
-export default SignUp;
